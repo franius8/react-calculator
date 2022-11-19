@@ -1,16 +1,16 @@
 import React from "react";
 import Button from "./button";
 
-class OperandContainer extends React.Component {
+class TopContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.operators = ["+", "-", "\u00d7", "\u00f7", '='];
+    this.operators = ['AC', '+/-', '%'];
     this.background = 'orange'
     this.color = 'white'
   }
   render() {
     return (
-      <div className="operand-container">
+      <div className="top-container">
         {this.operators.map((operator) => {
           return <Button
           click={this.props.click}
@@ -24,4 +24,4 @@ class OperandContainer extends React.Component {
   }
 }
 
-export default OperandContainer;
+export default TopContainer;
