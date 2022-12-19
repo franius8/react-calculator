@@ -11,13 +11,14 @@ class App extends React.Component {
       operator: "",
       firstNumber: 0,
       secondNumber: 0,
-      result: 0
+      result: 0,
+      activeButton: ""
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(e) {
     let value = e.target.innerHTML;
-    if (value === "C") {
+    if (value === "AC") {
       this.setState({
         display: 0,
         operator: "",
@@ -40,8 +41,15 @@ class App extends React.Component {
       this.setState({
         operator: value,
         firstNumber: this.state.display,
+        activeButton: value,
         display: 0
       });
+    } else if (value === ".") {
+      if (!String(this.state.display).includes(".")) {
+        this.setState({
+          display: this.state.display + value
+        });
+      }
     } else if (this.state.operator === "") {
       if (String(this.state.display).length < 9) {
         this.setState({
@@ -51,10 +59,14 @@ class App extends React.Component {
         alert("You can only enter up to 9 digits");
       }
     } else {
-      this.setState({
-        display: this.state.display === 0 ? value : this.state.display + value,
-        secondNumber: this.state.display === 0 ? value : this.state.display + value
-      });
+      if (String(this.state.display).length < 9) {
+        this.setState({
+          display: this.state.display === 0 ? value : this.state.display + value,
+          secondNumber: this.state.display === 0 ? value : this.state.display + value
+        });
+      } else {
+        alert("You can only enter up to 9 digits");
+      }
     }
   }
 
@@ -71,7 +83,11 @@ class App extends React.Component {
         result = firstNumber * secondNumber;
         break;
       case "\u00f7":
-        result = firstNumber / secondNumber;
+        if (secondNumber === 0) {
+          result = 'Really?';
+        } else {
+          result = firstNumber / secondNumber;
+        }
         break;
       default:
         result = 0;
@@ -86,7 +102,7 @@ class App extends React.Component {
       <Display display={this.state.display}/>
       <TopContainer click={this.handleClick}/>
       <MainContainer click={this.handleClick}/>
-      <OperandContainer click={this.handleClick}/>
+      <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
     </div>
     )
   };
