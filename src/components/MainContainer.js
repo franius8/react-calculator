@@ -4,7 +4,7 @@ import Button from './button';
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, '.'];
+    this.numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '.'];
     this.background = 'lightgrey'
     this.color = 'black'
   }

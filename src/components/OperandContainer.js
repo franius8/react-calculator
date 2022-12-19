@@ -8,8 +8,9 @@ class OperandContainer extends React.Component {
       activeButton: this.props.activeButton
     };
     this.operators = ["+", "-", "\u00d7", "\u00f7", '='];
-    this.background = 'orange'
-    this.color = 'white'
+    this.background = 'orange';
+    this.activeBackground = 'darkorange'
+    this.color = 'white';
   }
   render() {
     return (
@@ -18,11 +19,12 @@ class OperandContainer extends React.Component {
           return <Button
           click={this.props.click}
           value={operator}
-          isActive={this.state.activeButton === operator}
-          background={this.background} 
-          color={this.color} key={operator} />
-        })
-        }
+          activeButton={this.props.activeButton}
+          background={this.background}
+          activeBackground={this.activeBackground}
+          color={this.color} 
+          key={operator} />
+        })}
       </div>
     );
   }

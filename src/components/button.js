@@ -6,18 +6,18 @@ class Button extends React.Component {
     super(props);
     this.state = {
       value: this.props.value,
-      background: this.props.background,
       color: this.props.color,
-      isActive: this.props.isActive,
+      activeButton: this.props.activeButton,
     };
   }
   render() {
+    let background = this.props.value === this.props.activeButton ? this.props.activeBackground : this.props.background;
     return (
       <button 
       id={'button' + this.props.value}
-      className={this.state.isActive ? 'active' : ''}
-      style={{backgroundColor: this.state.background, color: this.state.color}} onClick={this.props.click}>
-        {this.props.value}
+      className={this.props.value === this.props.activeButton ? "active" : ""}
+      style={{backgroundColor: background, color: this.state.color}} onClick={this.props.click}>
+        {this.state.value}
       </button>
     );
   }

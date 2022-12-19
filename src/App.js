@@ -12,20 +12,25 @@ class App extends React.Component {
       firstNumber: 0,
       secondNumber: 0,
       result: 0,
-      activeButton: ""
+      activeButton: "",
+      newNumberfirstDigit: false,
+      operators: ['AC', '%', '+/-'],
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(e) {
-    let value = e.target.innerHTML;
+    const value = e.target.innerHTML;
     if (value === "AC") {
       this.setState({
         display: 0,
         operator: "",
         firstNumber: 0,
         secondNumber: 0,
-        result: 0
+        result: 0,
+        activeButton: "",
       });
+    } else if (value === "C") {
+
     } else if (value === "=") {
       const numericFirstnumber = parseFloat(this.state.firstNumber);
       const numericSecondnumber = parseFloat(this.state.secondNumber);
@@ -35,14 +40,20 @@ class App extends React.Component {
         operator: "",
         firstNumber: 0,
         secondNumber: 0,
-        result: currentResult
+        result: currentResult,
+        activeButton: "",
       });
     } else if (value === "+" || value === "-" || value === "\u00d7" || value === "\u00f7") {
       this.setState({
         operator: value,
         firstNumber: this.state.display,
         activeButton: value,
-        display: 0
+        newNumberfirstDigit: true,
+      });
+      console.log(this.state.activeButton);
+    } else if (value === "+/-") {
+      this.setState({
+        display: this.state.display * -1
       });
     } else if (value === ".") {
       if (!String(this.state.display).includes(".")) {
@@ -61,8 +72,10 @@ class App extends React.Component {
     } else {
       if (String(this.state.display).length < 9) {
         this.setState({
-          display: this.state.display === 0 ? value : this.state.display + value,
-          secondNumber: this.state.display === 0 ? value : this.state.display + value
+          display: this.state.newNumberfirstDigit === true ? value : this.state.display + value,
+          secondNumber: this.state.newNumberfirstDigit === true ? value : this.state.display + value,
+          newNumberfirstDigit: false,
+          activeButton: value,
         });
       } else {
         alert("You can only enter up to 9 digits");
@@ -92,15 +105,18 @@ class App extends React.Component {
       default:
         result = 0;
     }
-    console.log(result);
-    return result;
+    if (result % 1 === 0) {
+      return result;
+    } else {
+      return result.toFixed(2);
+    }
   }
   
   render() {
     return (
     <div className="App">
       <Display display={this.state.display}/>
-      <TopContainer click={this.handleClick}/>
+      <TopContainer click={this.handleClick} operators={this.state.operators}/>
       <MainContainer click={this.handleClick}/>
       <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
     </div>

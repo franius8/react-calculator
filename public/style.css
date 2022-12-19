@@ -64,10 +64,6 @@ button:hover {
   cursor: pointer;
 }
 
-button.active {
-  background-color: lightcoral;
-}
-
 #button0 {
   grid-column: 1 / 3;
   width: auto;
