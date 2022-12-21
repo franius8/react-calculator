@@ -52,6 +52,8 @@ class App extends React.Component {
       this.toggleHistory();
     } else if (value.match(/g/gi)) {
       this.toggleAdditionalOperands();
+    } else if (value.match(/r/gi)) {
+      this.handleChange("\u221a");
     }
   }
 
@@ -87,6 +89,18 @@ class App extends React.Component {
       });
       this.clearState();
       this.logResult(numericFirstnumber, numericSecondnumber, this.state.operator, currentResult);
+    } else if (value === "%") {
+      const numericSecondnumber = parseFloat(this.state.secondNumber);
+      const numericFirstnumber = parseFloat(this.state.firstNumber);
+      const percentage = numericSecondnumber / 100 * numericFirstnumber;
+      console.log(percentage);
+      const currentResult = this.performCalculation(numericFirstnumber, percentage, this.state.operator)
+      this.setState({
+        display: currentResult,
+        result: currentResult,
+      });
+      this.clearState();
+      this.logResult(numericFirstnumber, percentage, this.state.operator, currentResult);
     } else if (value === "\u221a") {
       this.setState({
         display: Math.sqrt(this.state.display),
