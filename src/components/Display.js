@@ -10,7 +10,7 @@ class Display extends React.Component {
   render() {
     return (
       <div className="display-container">
-        <div className="display">{this.props.display}</div>
+        <div className="display" style={{fontFamily: 'Anonymous Pro'}}>{this.props.display}</div>
       </div>
     );
   }

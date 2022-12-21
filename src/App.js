@@ -3,6 +3,8 @@ import MainContainer from './components/MainContainer';
 import OperandContainer from './components/OperandContainer';
 import Display from './components/Display';
 import TopContainer from './components/topcontainer';
+import HistoryButton from './components/historyButton';
+import HistoryDisplay from './components/historyDisplay';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,10 +17,13 @@ class App extends React.Component {
       activeButton: "",
       newNumberfirstDigit: false,
       operators: ['AC', '%', '+/-'],
+      history: [],
+      historyVisible: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handlekeydown = this.handlekeydown.bind(this);
+    this.toggleHistory = this.toggleHistory.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +83,9 @@ class App extends React.Component {
         secondNumber: 0,
         result: currentResult,
         activeButton: "",
+        newNumberfirstDigit: true,
       });
+      this.logResult(numericFirstnumber, numericSecondnumber, this.state.operator, currentResult);
     } else if (value === "+" || value === "-" || value === "\u00d7" || value === "\u00f7") {
       this.setState({
         operator: value,
@@ -86,7 +93,6 @@ class App extends React.Component {
         activeButton: value,
         newNumberfirstDigit: true,
       });
-      console.log(this.state.activeButton);
     } else if (value === "+/-") {
       this.setState({
         display: this.state.display * -1
@@ -100,7 +106,8 @@ class App extends React.Component {
     } else if (this.state.operator === "") {
       if (String(this.state.display).length < 9) {
         this.setState({
-          display: this.state.display === 0 ? value : this.state.display + value
+          display: this.state.display === 0 || this.state.newNumberfirstDigit ? value : this.state.display + value,
+          newNumberfirstDigit: false,
         });
       } else {
         alert("You can only enter up to 9 digits");
@@ -147,14 +154,36 @@ class App extends React.Component {
       return result.toFixed(2);
     }
   }
+
+  logResult(firstNumber, secondNumber, operator, result) {
+    const operation = (firstNumber + " " + operator + " " + secondNumber + " = " + result);
+    const currentHistory = this.state.history;
+    currentHistory.push(operation);
+    this.setState({
+      history: currentHistory
+    });
+  };
+
+  toggleHistory(e) {
+    this.setState({
+      historyVisible: !this.state.historyVisible,
+    });
+  }
   
   render() {
+    let calculatorClass = this.state.historyVisible ? "calculatorHistoryVisible" : "calculator";
     return (
     <div className="App">
-      <Display display={this.state.display}/>
-      <TopContainer click={this.handleClick} operators={this.state.display === 0 ? ['AC', '%', '+/-'] : ['C', '%', '+/-']}/>
-      <MainContainer click={this.handleClick}/>
-      <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
+        <div className={calculatorClass}>
+        <Display display={this.state.display}/>
+        <TopContainer click={this.handleClick} operators={this.state.display === 0 ? ['AC', '%', '+/-'] : ['C', '%', '+/-']}/>
+        <MainContainer click={this.handleClick}/>
+        <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
+      </div>
+      <div className="history">
+        <HistoryDisplay history={this.state.history} visible={this.state.historyVisible}/>
+        <HistoryButton active={this.state.historyVisible} click={this.toggleHistory}/>
+      </div>
     </div>
     )
   };
