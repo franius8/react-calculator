@@ -17,9 +17,37 @@ class App extends React.Component {
       operators: ['AC', '%', '+/-'],
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handlekeydown = this.handlekeydown.bind(this);
   }
+
+  componentDidMount() {
+    window.addEventListener('keyup', this.handlekeydown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.handlekeydown);
+  }
+
+  handlekeydown(e) {
+    const value = e.key;
+    if (value.match(/[0-9+c.,=-]/gi)) {
+      this.handleChange(value.toUpperCase());
+    } else if (value === "*") {
+      this.handleChange("\u00d7");
+    } else if (value === "/") {
+      this.handleChange("\u00f7");
+    } else if (value === "Enter") {
+      this.handleChange("=");
+    }
+  }
+
   handleClick(e) {
     const value = e.target.innerHTML;
+    this.handleChange(value);
+  }
+
+  handleChange(value) {
     if (value === "AC") {
       this.setState({
         display: 0,
@@ -30,7 +58,15 @@ class App extends React.Component {
         activeButton: "",
       });
     } else if (value === "C") {
-
+      this.setState({
+        display: 0,
+      });
+      if (this.state.operator !== "") {
+        this.setState({
+          newNumberfirstDigit: true,
+          activeButton: this.state.operator,
+        });
+      }
     } else if (value === "=") {
       const numericFirstnumber = parseFloat(this.state.firstNumber);
       const numericSecondnumber = parseFloat(this.state.secondNumber);
@@ -116,7 +152,7 @@ class App extends React.Component {
     return (
     <div className="App">
       <Display display={this.state.display}/>
-      <TopContainer click={this.handleClick} operators={this.state.operators}/>
+      <TopContainer click={this.handleClick} operators={this.state.display === 0 ? ['AC', '%', '+/-'] : ['C', '%', '+/-']}/>
       <MainContainer click={this.handleClick}/>
       <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
     </div>

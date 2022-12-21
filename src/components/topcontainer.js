@@ -11,7 +11,7 @@ class TopContainer extends React.Component {
   render() {
     return (
       <div className="top-container">
-        {this.operators.map((operator) => {
+        {this.props.operators.map((operator) => {
           return <Button
           click={this.props.click}
           value={operator} 
