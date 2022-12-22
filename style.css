@@ -1,0 +1,158 @@
+body {
+  overflow: hidden;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App {
+  position: absolute;
+}
+
+.calculator, 
+.calculatorHistoryVisible,
+.calculatorOperandsVisible,
+.calculatorEverythingVisible {
+  display: grid;
+  border-radius: 0.5rem;
+  gap: 1px;
+  overflow: hidden;
+  grid-template: auto auto auto / auto auto;
+  background-color: rgb(169, 167, 167);
+}
+
+.calculatorHistoryVisible {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.calculatorOperandsVisible {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.calculatorEverythingVisible {
+  border-radius: 0;
+}
+
+.display-container {
+  grid-column: 1 / 3;
+  padding: 1rem;
+  background-color: rgb(110, 110, 110);
+  color: white;
+  font-size: 3.25rem;
+  text-align: right;
+}
+
+.top-container {
+  display: grid;
+  grid-template: 1fr / repeat(3, 1fr);
+  gap: 1px;
+}
+
+.main-container {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: 1px;
+  grid-area: 3 / 1 / 3 / 1;
+}
+
+.operand-container {
+  display: grid;
+  grid-template: repeat(5, 1fr) / 1fr;
+  gap: 1px;
+  grid-area: 2 / 2 / span 2 / span 1;
+}
+
+button {
+  padding: 1.25rem;
+  border: none;
+  margin: 0;
+  font-size: 2rem;
+  height: 5.25rem;
+  width: 5.25rem;
+  aspect-ratio: 1;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#button0 {
+  grid-column: 1 / 3;
+  width: auto;
+  aspect-ratio: auto;
+}
+
+.history, .additionalOperandsContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.additionalOperandsContainer {
+  top: 50%;
+  left: 0;
+  transform: translate(-100%, -50%);
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.additionalOperands {
+  box-sizing: border-box;
+  grid-template: repeat(5, 1fr) / 1fr;
+  gap: 1px;
+  border-radius: 0.5rem 0 0 0.5rem;
+  overflow: hidden;
+  background-color: rgb(169, 167, 167);
+  border-right: 1px solid rgb(169, 167, 167);
+}
+
+.history {
+  top: 50%;
+  left: 100%;
+  transform: translate(0, -50%);
+}
+
+.historyDisplay {
+  border: 1px solid rgb(169, 167, 167);
+  width: fit-content;
+  border-radius: 0 0.5rem 0.5rem 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  padding: 1rem 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.historyButton, .additionalOperandButton {
+  font-size: 1rem;
+  width: 1.75rem;
+  padding: 0.5rem;
+  align-self: center;
+}
+
+.historyButton {
+  border-radius: 0 1rem 1rem 0;
+}
+
+.additionalOperandButton {
+  border-radius: 1rem 0 0 1rem;
+}
+
+.clearHistory {
+  margin-top: auto;
+  align-self: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  height: 2.2rem;
+  padding: 0.4rem 1rem;
+  line-height: 0.75rem;
+  border-radius: 0.5rem;
+};
