@@ -18,7 +18,7 @@ class App extends React.Component {
       result: 0,
       activeButton: "",
       newNumberfirstDigit: false,
-      operators: ['AC', '%', '+/-'],
+      operators: ['AC', '%', '\u00B1'],
       history: [],
       historyVisible: false,
       additionalOperandsVisible: false,
@@ -143,7 +143,7 @@ class App extends React.Component {
         activeButton: value,
         newNumberfirstDigit: true,
       });
-    } else if (value === "+/-") {
+    } else if (value === "\u00B1") {
       this.setState({
         display: this.state.display * -1
       });
@@ -202,10 +202,10 @@ class App extends React.Component {
       default:
         result = 0;
     }
-    if (result % 1 === 0) {
-      return result;
-    } else if (result > 999999999) {
+    if (result > 999999999) {
       return result.toExponential(2);
+    } else if (result % 1 === 0) {
+      return result;
     } else {
       return result.toFixed(2);
     }
@@ -295,7 +295,7 @@ class App extends React.Component {
       </div>
       <div className={calculatorClass}>
         <Display display={this.state.display}/>
-        <TopContainer click={this.handleClick} operators={this.state.display === 0 ? ['AC', '%', '+/-'] : ['C', '%', '+/-']}/>
+        <TopContainer click={this.handleClick} operators={this.state.display === 0 ? ['AC', '%', '\u00B1'] : ['C', '%', '\u00B1']}/>
         <MainContainer click={this.handleClick}/>
         <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
       </div>
