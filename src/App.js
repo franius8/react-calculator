@@ -28,6 +28,7 @@ class App extends React.Component {
     this.handlekeydown = this.handlekeydown.bind(this);
     this.toggleHistory = this.toggleHistory.bind(this);
     this.toggleAdditionalOperands = this.toggleAdditionalOperands.bind(this);
+    this.clearHistory = this.clearHistory.bind(this);
   }
 
   componentDidMount() {
@@ -102,11 +103,12 @@ class App extends React.Component {
       this.clearState();
       this.logResult(numericFirstnumber, percentage, this.state.operator, currentResult);
     } else if (value === "\u221a") {
+      const sqrt = Math.sqrt(this.state.display).toFixed(5);
       this.setState({
-        display: Math.sqrt(this.state.display),
+        display: sqrt,
       });
       this.clearState();
-      this.logResult(this.state.display, null, "\u221a", Math.sqrt(this.state.display));
+      this.logResult(this.state.display, null, "\u221a", sqrt);
     } else if (value === "log") {
       this.setState({
         display: Math.log10(this.state.display),
@@ -212,8 +214,10 @@ class App extends React.Component {
   shortenNumber(number) {
     if (number > 999999999) {
       return number.toExponential(2);
-    } else {
+    } else if (number % 1 === 0) {
       return number;
+    } else {
+      return number.toFixed(2);
     }
   }
 
@@ -253,6 +257,12 @@ class App extends React.Component {
     });
   };
 
+  clearHistory() {
+    this.setState({
+      history: [],
+    });
+  }
+
   toggleHistory(e) {
     this.setState({
       historyVisible: !this.state.historyVisible,
@@ -290,7 +300,7 @@ class App extends React.Component {
         <OperandContainer activeButton={this.state.activeButton} click={this.handleClick}/>
       </div>
       <div className="history">
-        <HistoryDisplay history={this.state.history} visible={this.state.historyVisible}/>
+        <HistoryDisplay history={this.state.history} visible={this.state.historyVisible} clearHistory={this.clearHistory}/>
         <HistoryButton active={this.state.historyVisible} click={this.toggleHistory}/>
       </div>
     </div>

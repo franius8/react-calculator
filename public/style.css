@@ -126,6 +126,9 @@ button:hover {
   flex-wrap: nowrap;
   white-space: nowrap;
   padding: 1rem 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
 }
 
 .historyButton, .additionalOperandButton {
@@ -142,3 +145,14 @@ button:hover {
 .additionalOperandButton {
   border-radius: 1rem 0 0 1rem;
 }
+
+.clearHistory {
+  margin-top: auto;
+  align-self: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  height: 2.2rem;
+  padding: 0.4rem 1rem;
+  line-height: 0.75rem;
+  border-radius: 0.5rem;
+};
