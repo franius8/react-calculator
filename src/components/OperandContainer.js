@@ -1,33 +1,27 @@
 import React from "react";
 import Button from "./button";
 
-class OperandContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeButton: this.props.activeButton
-    };
-    this.operators = ["+", "-", "\u00d7", "\u00f7", '='];
-    this.background = 'orange';
-    this.activeBackground = 'darkorange'
-    this.color = 'white';
-  }
-  render() {
+function OperandContainer(props) {
+
+    const operators = ["+", "-", "\u00d7", "\u00f7", '='];
+    const background = 'orange';
+    const activeBackground = 'darkorange'
+    const color = 'white';
+
     return (
       <div className="operand-container">
-        {this.operators.map((operator) => {
+        {operators.map((operator) => {
           return <Button
-          click={this.props.click}
+          click={props.click}
           value={operator}
-          activeButton={this.props.activeButton}
-          background={this.background}
-          activeBackground={this.activeBackground}
-          color={this.color} 
+          activeButton={props.activeButton}
+          background={background}
+          activeBackground={activeBackground}
+          color={color} 
           key={operator} />
         })}
       </div>
     );
-  }
 }
 
 export default OperandContainer;

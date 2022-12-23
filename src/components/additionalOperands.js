@@ -1,36 +1,27 @@
 import React from "react";
 import Button from "./button";
 
-class AdditionalOperands extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: this.props.active,
-      icons: ["\u02C2", "\u02C3"],
-    };
-    this.background = 'orange';
-    this.activeBackground = 'darkorange';
-    this.color = 'white';
+function AdditionalOperands(props) {
+ 
+    const background = 'orange';
+    const activeBackground = 'darkorange';
+    const color = 'white';
+    const operators = ["\u221a", "log", "^", "x!", 'sin', 'cos'];
 
-    this.operators = ["\u221a", "log", "^", "x!", 'sin', 'cos'];
-  }
-
-  render() {
     return (
-      <div className="additionalOperands" style={{ display: this.props.visible ? "grid" : "none" }}>
-        {this.operators.map((operator) => {
+      <div className="additionalOperands" style={{ display: props.visible ? "grid" : "none" }}>
+        {operators.map((operator) => {
           return <Button
-          click={this.props.click}
+          click={props.click}
           value={operator}
-          activeButton={this.props.activeButton}
-          background={this.background}
-          activeBackground={this.activeBackground}
-          color={this.color} 
+          activeButton={props.activeButton}
+          background={background}
+          activeBackground={activeBackground}
+          color={color}
           key={operator} />
         })}
       </div>
     );
-  }
 }
 
 export default AdditionalOperands;

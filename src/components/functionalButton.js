@@ -1,17 +1,11 @@
 import React from "react";
 
-class FunctionalButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+function FunctionalButton(props) {
     return (
-      <button className={this.props.class} onClick={this.props.click}>
-        <span class="material-symbols-outlined">{this.props.icon}</span>
+      <button className={props.class} onClick={props.click}>
+        <span className="material-symbols-outlined">{props.icon}</span>
       </button>
     );
-  }
 }
 
 export default FunctionalButton;

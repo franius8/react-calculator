@@ -1,28 +1,24 @@
 import React from "react";
 import Button from "./button";
 
-class TopContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.operators = this.props.operators;
-    this.background = 'orange'
-    this.color = 'white'
-  }
-  render() {
+function TopContainer(props) {
+
+    const background = 'orange'
+    const color = 'white'
+
     return (
       <div className="top-container">
-        {this.props.operators.map((operator) => {
+        {props.operators.map((operator) => {
           return <Button
-          click={this.props.click}
+          click={props.click}
           value={operator} 
-          background={this.background} 
-          color={this.color} 
+          background={background}
+          color={color}
           key={operator} />
         })
         }
       </div>
     );
-  }
 }
 
 export default TopContainer;

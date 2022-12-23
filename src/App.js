@@ -123,14 +123,20 @@ class App extends React.Component {
       this.clearState();
       this.logResult(this.state.display, null, "x!", factorial);
     } else if (value === "sin") {
-      const sin = Math.sin(this.state.display).toFixed(5);
+      let sin = Math.sin(Math.PI / 180 * this.state.display);
+      if (sin % 1 !== 0 && String(sin).split(".")[1].length > 5) {
+        sin = sin.toFixed(5);
+      }
       this.setState({
         display: sin,
       });
       this.clearState();
       this.logResult(this.state.display, null, "sin", sin);
     } else if (value === "cos") {
-      const cos = Math.cos(this.state.display).toFixed(5);
+      let cos = Math.cos(Math.PI / 180 * this.state.display);
+      if (cos % 1 !== 0 && String(cos).split(".")[1].length > 5) {
+        cos = cos.toFixed(5);
+      }
       this.setState({
         display: cos,
       });
