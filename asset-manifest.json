@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/memory-game/static/js/main.3c9cb514.js",
-    "index.html": "/memory-game/index.html",
-    "main.3c9cb514.js.map": "/memory-game/static/js/main.3c9cb514.js.map"
+    "main.js": "/react-calculator/static/js/main.3c9cb514.js",
+    "index.html": "/react-calculator/index.html",
+    "main.3c9cb514.js.map": "/react-calculator/static/js/main.3c9cb514.js.map"
   },
   "entrypoints": [
     "static/js/main.3c9cb514.js"
