@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-calculator/static/js/main.fc08974f.js",
-    "index.html": "/react-calculator/index.html",
-    "main.fc08974f.js.map": "/react-calculator/static/js/main.fc08974f.js.map"
+    "main.js": "/memory-game/static/js/main.3c9cb514.js",
+    "index.html": "/memory-game/index.html",
+    "main.3c9cb514.js.map": "/memory-game/static/js/main.3c9cb514.js.map"
   },
   "entrypoints": [
-    "static/js/main.fc08974f.js"
+    "static/js/main.3c9cb514.js"
   ]
 }
