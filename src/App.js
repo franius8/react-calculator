@@ -110,11 +110,15 @@ class App extends React.Component {
       this.clearState();
       this.logResult(this.state.display, null, "\u221a", sqrt);
     } else if (value === "log") {
+      let log = Math.log10(this.state.display)
+      if (log % 1 !== 0 && String(log).split(".")[1].length > 5) {
+        log = log.toFixed(5);
+      }
       this.setState({
-        display: Math.log10(this.state.display),
+        display: log,
       });
       this.clearState();
-      this.logResult(this.state.display, null, "log", Math.log10(this.state.display));
+      this.logResult(this.state.display, null, "log", log);
     } else if (value === "x!") {
       const factorial = this.shortenNumber(this.factorial(this.state.display));
       this.setState({
@@ -183,7 +187,7 @@ class App extends React.Component {
   }
 
   performCalculation(firstNumber, secondNumber, operator) {
-    let result = 0;
+    let result;
     switch (operator) {
       case "^":
         result = firstNumber ** secondNumber;
