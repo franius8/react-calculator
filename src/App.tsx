@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 import MainContainer from './components/MainContainer';
 import OperandContainer from './components/OperandContainer';
 import Display from './components/Display';
@@ -7,14 +7,15 @@ import HistoryButton from './components/historyButton';
 import HistoryDisplay from './components/historyDisplay';
 import AdditionalOperandButton from './components/additionalOperandButton';
 import AdditionalOperands from './components/additionalOperands';
+import "./style.css";
 class App extends React.Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = {
       display: 0,
       operator: "",
-      firstNumber: 0,
-      secondNumber: 0,
+      firstNumber: "0",
+      secondNumber: "0",
       result: 0,
       activeButton: "",
       newNumberfirstDigit: false,
@@ -39,7 +40,7 @@ class App extends React.Component {
     window.removeEventListener('keyup', this.handlekeydown);
   }
 
-  handlekeydown(e) {
+  handlekeydown(e: { key: any; }) {
     const value = e.key;
     if (value.match(/[0-9+c.,=-]/gi)) {
       this.handleChange(value.toUpperCase());
@@ -58,12 +59,12 @@ class App extends React.Component {
     }
   }
 
-  handleClick(e) {
+  handleClick(e: { target: { innerHTML: any; }; }) {
     const value = e.target.innerHTML;
     this.handleChange(value);
   }
 
-  handleChange(value) {
+  handleChange(value: string | number) {
     if (value === "AC") {
       this.setState({
         display: 0,
@@ -110,7 +111,7 @@ class App extends React.Component {
       this.clearState();
       this.logResult(this.state.display, null, "\u221a", sqrt);
     } else if (value === "log") {
-      let log = Math.log10(this.state.display)
+      let log: string | number = Math.log10(this.state.display)
       if (log % 1 !== 0 && String(log).split(".")[1].length > 5) {
         log = log.toFixed(5);
       }
@@ -127,7 +128,7 @@ class App extends React.Component {
       this.clearState();
       this.logResult(this.state.display, null, "x!", factorial);
     } else if (value === "sin") {
-      let sin = Math.sin(Math.PI / 180 * this.state.display);
+      let sin: string | number = Math.sin(Math.PI / 180 * this.state.display);
       if (sin % 1 !== 0 && String(sin).split(".")[1].length > 5) {
         sin = sin.toFixed(5);
       }
@@ -137,7 +138,7 @@ class App extends React.Component {
       this.clearState();
       this.logResult(this.state.display, null, "sin", sin);
     } else if (value === "cos") {
-      let cos = Math.cos(Math.PI / 180 * this.state.display);
+      let cos: number | string = Math.cos(Math.PI / 180 * this.state.display);
       if (cos % 1 !== 0 && String(cos).split(".")[1].length > 5) {
         cos = cos.toFixed(5);
       }
@@ -166,7 +167,7 @@ class App extends React.Component {
     } else if (this.state.operator === "") {
       if (String(this.state.display).length < 9 || this.state.newNumberfirstDigit) {
         this.setState({
-          display: this.state.display === 0 || this.state.newNumberfirstDigit ? value : this.state.display + value,
+          display: this.state.display === 0 || this.state.newNumberfirstDigit ? value : this.state.display + (value as number),
           newNumberfirstDigit: false,
         });
       } else {
@@ -175,8 +176,8 @@ class App extends React.Component {
     } else {
       if (String(this.state.display).length < 9) {
         this.setState({
-          display: this.state.newNumberfirstDigit === true ? value : this.state.display + value,
-          secondNumber: this.state.newNumberfirstDigit === true ? value : this.state.display + value,
+          display: this.state.newNumberfirstDigit === true ? value : this.state.display + (value as number),
+          secondNumber: this.state.newNumberfirstDigit === true ? value : this.state.display + (value as number),
           newNumberfirstDigit: false,
           activeButton: value,
         });
@@ -186,11 +187,11 @@ class App extends React.Component {
     }
   }
 
-  performCalculation(firstNumber, secondNumber, operator) {
+  performCalculation(firstNumber: number, secondNumber: number, operator: string) {
     let result;
     switch (operator) {
       case "^":
-        result = firstNumber ** secondNumber;
+        result= firstNumber ** secondNumber;
         console.log(firstNumber + " " + secondNumber + " " + result)
         break;
       case "+":
@@ -213,15 +214,15 @@ class App extends React.Component {
         result = 0;
     }
     if (result > 999999999) {
-      return result.toExponential(2);
-    } else if (result % 1 === 0) {
+      return (result as number).toExponential(2);
+    } else if (result as number % 1 === 0) {
       return result;
     } else {
-      return result.toFixed(2);
+      return (result as number).toFixed(2);
     }
   }
 
-  shortenNumber(number) {
+  shortenNumber(number: number) {
     if (number > 999999999) {
       return number.toExponential(2);
     } else if (number % 1 === 0) {
@@ -241,7 +242,7 @@ class App extends React.Component {
     });
   }
 
-  factorial(number) {
+  factorial(number: number): number {
     if (number === 0) {
       return 1;
     } else {
@@ -249,7 +250,7 @@ class App extends React.Component {
     }
   }
 
-  logResult(firstNumber, secondNumber = null, operator, result) {
+  logResult(firstNumber: string | number, secondNumber: any = null, operator: string, result: string | number) {
     let operation;
     if (secondNumber === null) {
       if (operator === "x!") {
@@ -273,13 +274,13 @@ class App extends React.Component {
     });
   }
 
-  toggleHistory(e) {
+  toggleHistory() {
     this.setState({
       historyVisible: !this.state.historyVisible,
     });
   }
 
-  toggleAdditionalOperands(e) {
+  toggleAdditionalOperands() {
     this.setState({
       additionalOperandsVisible: !this.state.additionalOperandsVisible,
     });
@@ -297,11 +298,12 @@ class App extends React.Component {
     } else {
       calculatorClass = "calculator";
     }
+
     return (
     <div className="App">
       <div className='additionalOperandsContainer'>
         <AdditionalOperandButton active={this.state.additionalOperandsVisible} click={this.toggleAdditionalOperands}/>
-        <AdditionalOperands visible={this.state.additionalOperandsVisible} click={this.handleClick}/>
+        <AdditionalOperands visible={this.state.additionalOperandsVisible} click={this.handleClick} activeButton={this.state.activeButton}/>
       </div>
       <div className={calculatorClass}>
         <Display display={this.state.display}/>

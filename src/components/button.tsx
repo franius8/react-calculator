@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Button(props) {
+function Button(props: { value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | null | undefined; activeButton: any; activeBackground: any; background: any; color: any; click: React.MouseEventHandler<HTMLButtonElement> | undefined; }) {
 
     let background = props.value === props.activeButton ? props.activeBackground : props.background;
     return (

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./button";
 
-function AdditionalOperands(props) {
+function AdditionalOperands(props: { visible: any; click: any; activeButton: any; }) {
  
     const background = 'orange';
     const activeBackground = 'darkorange';
