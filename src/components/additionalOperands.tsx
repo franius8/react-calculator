@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./button";
 
-function AdditionalOperands(props: { visible: any; click: any; activeButton: any; }) {
+function AdditionalOperands(props: { visible: boolean; click: React.MouseEventHandler<HTMLButtonElement>; activeButton: string; }) {
  
     const background = 'orange';
     const activeBackground = 'darkorange';

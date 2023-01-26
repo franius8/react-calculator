@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./button.js";
 
-function OperandContainer(props: { click: React.MouseEventHandler<HTMLButtonElement> | undefined; activeButton: any; }) {
+function OperandContainer(props: { click: React.MouseEventHandler<HTMLButtonElement>; activeButton: any; }) {
 
     const operators = ["+", "-", "\u00d7", "\u00f7", '='];
     const background = 'orange';

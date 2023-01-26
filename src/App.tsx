@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from 'react';
+import React from 'react';
 import MainContainer from './components/MainContainer';
 import OperandContainer from './components/OperandContainer';
 import Display from './components/Display';
@@ -9,7 +9,7 @@ import AdditionalOperandButton from './components/additionalOperandButton';
 import AdditionalOperands from './components/additionalOperands';
 import "./style.css";
 class App extends React.Component {
-  constructor(props: any) {
+  constructor(props: never) {
     super(props);
     this.state = {
       display: 0,
@@ -40,7 +40,7 @@ class App extends React.Component {
     window.removeEventListener('keyup', this.handlekeydown);
   }
 
-  handlekeydown(e: { key: any; }) {
+  handlekeydown(e: { key: string; }) {
     const value = e.key;
     if (value.match(/[0-9+c.,=-]/gi)) {
       this.handleChange(value.toUpperCase());
@@ -59,8 +59,8 @@ class App extends React.Component {
     }
   }
 
-  handleClick(e: { target: { innerHTML: any; }; }) {
-    const value = e.target.innerHTML;
+  handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    const value = (e.target as HTMLButtonElement).innerHTML;
     this.handleChange(value);
   }
 
@@ -176,8 +176,8 @@ class App extends React.Component {
     } else {
       if (String(this.state.display).length < 9) {
         this.setState({
-          display: this.state.newNumberfirstDigit === true ? value : this.state.display + (value as number),
-          secondNumber: this.state.newNumberfirstDigit === true ? value : this.state.display + (value as number),
+          display: this.state.newNumberfirstDigit ? value : this.state.display + (value as number),
+          secondNumber: this.state.newNumberfirstDigit ? value : this.state.display + (value as number),
           newNumberfirstDigit: false,
           activeButton: value,
         });
@@ -250,7 +250,7 @@ class App extends React.Component {
     }
   }
 
-  logResult(firstNumber: string | number, secondNumber: any = null, operator: string, result: string | number) {
+  logResult(firstNumber: number, secondNumber: number | null = null, operator: string, result: string | number) {
     let operation;
     if (secondNumber === null) {
       if (operator === "x!") {

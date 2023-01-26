@@ -1,7 +1,7 @@
 import React from "react";
 import FunctionalButton from "./functionalButton.js";
 
-function HistoryDisplay(props: { visible: any; history: any[]; clearHistory: React.MouseEventHandler<HTMLButtonElement> | undefined; }) {
+function HistoryDisplay(props: { visible: any; history: any[]; clearHistory: React.MouseEventHandler<HTMLButtonElement>; }) {
 
     let visible = props.visible ? "flex" : "none";
     if (props.history.length === 0) {

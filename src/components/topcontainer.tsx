@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./button.js";
 
-function TopContainer(props: { operators: any[]; click: React.MouseEventHandler<HTMLButtonElement> | undefined; }) {
+function TopContainer(props: { operators: string[]; click: React.MouseEventHandler<HTMLButtonElement>; }) {
 
     const background = 'orange'
     const color = 'white'
@@ -14,7 +14,7 @@ function TopContainer(props: { operators: any[]; click: React.MouseEventHandler<
               value={operator}
               background={background}
               color={color}
-              key={operator} activeButton={undefined} activeBackground={undefined} />
+              key={operator} activeButton={""} activeBackground={""} />
         })
         }
       </div>

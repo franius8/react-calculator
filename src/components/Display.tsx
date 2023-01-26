@@ -1,6 +1,6 @@
 import React from "react";
 
-function Display(props: { display: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) {
+function Display(props: { display: string | number; }) {
 
     return (
       <div className="display-container">
