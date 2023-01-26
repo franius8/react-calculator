@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from './button';
+import Button from './button.js';
 
-function MainContainer(props) {
+function MainContainer(props: { click: React.MouseEventHandler<HTMLButtonElement>; }) {
     const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '.'];
     const background = 'lightgrey'
     const color = 'black'
@@ -11,11 +11,11 @@ function MainContainer(props) {
       {
         numbers.map((number) => {
           return <Button
-          click={props.click}
-          value={number} 
-          background={background}
-          color={color}
-         key={number} />
+              click={props.click}
+              value={number}
+              background={background}
+              color={color}
+              key={number} activeButton={""} activeBackground={""} />
         })
       }
       </div>

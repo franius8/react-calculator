@@ -1,6 +1,6 @@
 import React from "react";
 
-function Display(props) {
+function Display(props: { display: string | number; }) {
 
     return (
       <div className="display-container">
